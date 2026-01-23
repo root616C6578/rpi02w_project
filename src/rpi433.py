@@ -1,5 +1,4 @@
 from PIL import Image, ImageDraw, ImageFont
-from st7735 import ST7735
 import time
 import RPi.GPIO as GPIO
 import subprocess
@@ -8,9 +7,7 @@ import os
 import bluetooth
 from rpi_rf import RFDevice
 
-from kern import disp, original_img, BUTTON_UP, BUTTON_DOWN, BUTTON_SELECT, GPIO
-
-def rpi433_menu():
+def rpi433_menu(disp, original_img, BUTTON_UP, BUTTON_DOWN, BUTTON_SELECT):
     class RFReceiver:
         @staticmethod
         def receive(pin):
