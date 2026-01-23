@@ -1,19 +1,18 @@
 from PIL import Image, ImageDraw, ImageFont
-from st7735 import ST7735
 import time
 import RPi.GPIO as GPIO
 import subprocess
 import signal
 import os
 import bluetooth
-from kern import disp, original_img, BUTTON_UP, BUTTON_DOWN, BUTTON_SELECT, GPIO
+
 def scan_bluetooth_devices():
     """Scan for available Bluetooth devices"""
     # This function should return a list of MAC addresses
     pass
 
 
-def l2ping_attack():
+def l2ping_attack(disp, original_img, BUTTON_UP, BUTTON_DOWN, BUTTON_SELECT):
     img = original_img.copy()
     draw = ImageDraw.Draw(img)
     font = ImageFont.load_default()

@@ -96,7 +96,7 @@ while True:
             time.sleep(0.1)
             draw_image()
         if current_index == 2: # L2PING
-            l2ping_attack()
+            l2ping_attack(disp, original_img, BUTTON_UP, BUTTON_DOWN, BUTTON_SELECT)
             time.sleep(0.1)
             draw_image()
         if current_index == 3: # RPI433
