@@ -11,7 +11,6 @@ from rpi_rf import RFDevice
 from src.fm_trx import fmtrx
 from src.l2ping import l2ping_attack
 from src.rpi433 import rpi433_menu
-from src.sourapple import sourapple_attack
 
 # GPIO кнопок
 BUTTON_UP = 21
@@ -50,6 +49,9 @@ time.sleep(0.1)
 files_image = ["imgmenu/fbcp.png", "imgmenu/hackfm.png", "imgmenu/l2ping.png", "imgmenu/rpi433.png", "imgmenu/sourapple.png"]
 original_img = Image.open("imgmenu/menuimg.png").convert("RGB").resize((128, 128))
 original_img2 = Image.open("imgmenu/menuimg2.png").convert("RGB").resize((128, 128))
+
+# Import after defining dependencies to avoid circular imports
+from src.sourapple import sourapple_attack
 
 images = [Image.open(x).convert("RGB").resize((128, 128)) for x in files_image]
 current_index = 0
