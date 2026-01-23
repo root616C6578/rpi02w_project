@@ -94,7 +94,7 @@ def rpi433_menu(disp, original_img, BUTTON_UP, BUTTON_DOWN, BUTTON_SELECT):
                 draw = ImageDraw.Draw(img)
                 draw.text((5, 20), "Transmitting...", font=font, fill="white")
                 disp.display(img)
-                RFTransmitter.transmit(pin=18, code=code, protocol=protocol, pulselength=pulse_length)
+                RFTransmitter.transmit(pin=12, code=code, protocol=protocol, pulselength=pulse_length)
                 img = original_img.copy()
                 draw = ImageDraw.Draw(img)
                 draw.text((5, 20), "Transmission complete", font=font, fill="white")
