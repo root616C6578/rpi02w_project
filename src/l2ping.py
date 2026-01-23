@@ -6,13 +6,15 @@ import signal
 import os
 import bluetooth
 
-def scan_bluetooth_devices():
-    """Scan for available Bluetooth devices"""
-    # This function should return a list of MAC addresses
-    pass
+
 
 
 def l2ping_attack(disp, original_img, BUTTON_UP, BUTTON_DOWN, BUTTON_SELECT):
+   def scan_bluetooth_devices():
+    """Scan for available Bluetooth devices"""
+    
+    # This function should return a list of MAC addresses
+    nearby_devices = bluetooth.discover_devices(duration=8, flush_cache=True)
     img = original_img.copy()
     draw = ImageDraw.Draw(img)
     font = ImageFont.load_default()
