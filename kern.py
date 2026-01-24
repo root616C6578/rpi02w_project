@@ -109,4 +109,4 @@ while True:
             sourapple_attack()
             time.sleep(0.1)
             draw_image()
-            
+# U_U It will be soon......... ^_+
