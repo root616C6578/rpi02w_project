@@ -126,7 +126,7 @@ def rpi433_menu(disp, original_img, BUTTON_UP, BUTTON_DOWN, BUTTON_SELECT, Joyst
                         draw.text((5, 20), f"Transmitting {code}", font=font, fill="white")
                         disp.display(img)
                         rf_tx.tx_code(code, protocol, pulselength)
-                        time.sleep(1)
+                        time.sleep(15)
                         break
 
             time.sleep(0.1)
