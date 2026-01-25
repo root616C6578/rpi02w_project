@@ -88,9 +88,12 @@ while True:
     if GPIO.input(BUTTON_SELECT) == GPIO.LOW:
         time.sleep(0.2)
         if current_index == 0: # FBCT
-            subprocess.run(["export", "DISPLAY=:0"])
-            subprocess.run(["sudo", "-E", "python3", "/home/alex/rpi02w_project/src/mouse.py"])
             subprocess.run(["sudo", "/usr/local/bin/fbcp"])
+            command = "DISPLAY=:0 python3 /home/alex/rpi02w_project/src/mouse.py"
+
+            # Використовуємо sudo -i для повної імітації середовища root
+            subprocess.run(["sudo", "-i", "bash", "-c", command])
+
             break
         time.sleep(0.1)
 
