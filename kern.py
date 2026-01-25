@@ -88,10 +88,9 @@ while True:
     if GPIO.input(BUTTON_SELECT) == GPIO.LOW:
         time.sleep(0.2)
         if current_index == 0: # FBCT
+            subprocess.run(["export", "DISPLAY=:0"])
+            subprocess.run(["sudo", "-E", "python3", "/home/alex/rpi02w_project/src/mouse.py"])
             subprocess.run(["sudo", "/usr/local/bin/fbcp"])
-            env = os.environ.copy()
-            env["DISPLAY"] = ":0"  # додаємо X-сервер
-            subprocess.run(["sudo", "-E", "python3", "src/mouse.py"], env=env)
             break
         time.sleep(0.1)
 
