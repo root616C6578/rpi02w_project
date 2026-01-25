@@ -9,7 +9,7 @@ import bluetooth
 from rpi_rf import RFDevice
 
 from src.fm_trx import fmtrx
-from src.l2ping import l2ping_attack
+from src.l2ping import bluetooth_menu as l2ping_attack
 from src.rpi433 import rpi433_menu
 
 # GPIO кнопок
