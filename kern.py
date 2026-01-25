@@ -102,7 +102,7 @@ while True:
             time.sleep(0.1)
             draw_image()
         if current_index == 3: # RPI433
-            rpi433_menu(disp, original_img, BUTTON_UP, BUTTON_DOWN, BUTTON_SELECT)
+            rpi433_menu(disp, original_img, BUTTON_UP, BUTTON_DOWN, BUTTON_SELECT, Joystick_Press)
             time.sleep(0.1)
             draw_image()
         if current_index == 4: # SOUR APPLE
