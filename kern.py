@@ -11,7 +11,7 @@ from rpi_rf import RFDevice
 from src.fm_trx import fmtrx
 from src.l2ping import bluetooth_menu as l2ping_attack
 from src.rpi433 import rpi433_menu
-
+from src.mouse import run_mouse
 # GPIO кнопок
 BUTTON_UP = 21
 BUTTON_DOWN = 16
@@ -89,11 +89,9 @@ while True:
         time.sleep(0.2)
         if current_index == 0: # FBCT
             subprocess.run(["sudo", "/usr/local/bin/fbcp"])
-            command = "DISPLAY=:0 python3 /home/alex/rpi02w_project/src/mouse.py"
-
-            # Використовуємо sudo -i для повної імітації середовища root
-            subprocess.run(["sudo", "-i", "bash", "-c", command])
-
+            time.sleep(0.1)
+            run_mouse()
+            
             break
         time.sleep(0.1)
 
