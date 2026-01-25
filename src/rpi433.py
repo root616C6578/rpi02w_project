@@ -67,9 +67,9 @@ def rpi433_menu(disp, original_img, BUTTON_UP, BUTTON_DOWN, BUTTON_SELECT):
                     timestamp = rf_rx.rx_code_timestamp
                     while rf_rx.rx_code_timestamp == timestamp:
                         # Вихід по кнопці SELECT
-                        if GPIO.input(BUTTON_SELECT) == GPIO.LOW:
-                            return
-                        time.sleep(0.01)
+                        #if GPIO.input(BUTTON_SELECT) == GPIO.LOW:
+                        #    return
+                        #time.sleep(0.01)
 
                     code = rf_rx.rx_code
                     pulselength = rf_rx.rx_pulselength
