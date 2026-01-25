@@ -7,8 +7,8 @@ import signal
 import os
 import bluetooth
 
-def sourapple_attack():
-    from kern import disp, original_img2
+def sourapple_attack(disp, original_img2):
+    
     img = original_img2.copy()
     draw = ImageDraw.Draw(img)
     font = ImageFont.load_default()

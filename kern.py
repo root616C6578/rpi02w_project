@@ -106,7 +106,7 @@ while True:
             time.sleep(0.1)
             draw_image()
         if current_index == 4: # SOUR APPLE
-            sourapple_attack()
+            sourapple_attack(disp, original_img2)
             time.sleep(0.1)
             draw_image()
             
