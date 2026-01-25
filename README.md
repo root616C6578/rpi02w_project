@@ -205,11 +205,11 @@ This is an educational/research project. Improvements and bug fixes are welcome.
 
 ## License
 
-[Specify your license here - e.g., MIT, GPL-3.0, etc.]
+[MIT]
 
 ## Author
 
-[Your Name/Organization]
+[Alex / root616C6578]
 
 ## References
 
