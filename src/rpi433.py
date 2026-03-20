@@ -27,7 +27,10 @@ def load_signals():
             for line in f:
                 parts = line.strip().split()
                 if len(parts) == 3:
-                    signals.append([int(parts[0]), int(parts[1]), int(parts[2])])
+                    try:
+                        signals.append([int(parts[0]), int(parts[1]), int(parts[2])])
+                    except ValueError:
+                        pass
     except FileNotFoundError:
         pass
     return signals
@@ -53,20 +56,50 @@ def rpi433_menu(disp, original_img, BUTTON_UP, BUTTON_DOWN, BUTTON_SELECT, Joyst
         if GPIO.input(BUTTON_UP) == GPIO.LOW:
             cursor = (cursor - 1) % len(options)
             time.sleep(0.15)
+
         if GPIO.input(BUTTON_DOWN) == GPIO.LOW:
             cursor = (cursor + 1) % len(options)
             time.sleep(0.15)
 
+        # --- Вихід з головного меню ---
+        if GPIO.input(Joystick_Press) == GPIO.LOW:
+            time.sleep(0.2)
+            break
+
         # --- Вибір опції ---
         if GPIO.input(BUTTON_SELECT) == GPIO.LOW:
+            time.sleep(0.2)
+
             if options[cursor] == "Receive":
                 last_signal = None
+                try:
+                    with open(LOG_FILE, "w") as f:
+                        f.write("")
+                except OSError:
+                    img = original_img.copy()
+                    draw = ImageDraw.Draw(img)
+                    draw.text((5, 20), "Log file error", font=font, fill="white")
+                    disp.display(img)
+                    time.sleep(1.5)
+                    continue
+
                 while True:
+                    # вихід назад у головне меню
+                    if GPIO.input(Joystick_Press) == GPIO.LOW:
+                        time.sleep(0.2)
+                        break
+
                     timestamp = rf_rx.rx_code_timestamp
+
                     while rf_rx.rx_code_timestamp == timestamp:
-                        if GPIO.input(Joystick_Press) == GPIO.LOW:  # Вихід через Joystick
-                            return
+                        if GPIO.input(Joystick_Press) == GPIO.LOW:
+                            time.sleep(0.2)
+                            break
                         time.sleep(0.01)
+
+                    if GPIO.input(Joystick_Press) == GPIO.LOW:
+                        time.sleep(0.2)
+                        break
 
                     code = rf_rx.rx_code
                     pulselength = rf_rx.rx_pulselength
@@ -84,9 +117,11 @@ def rpi433_menu(disp, original_img, BUTTON_UP, BUTTON_DOWN, BUTTON_SELECT, Joyst
                         max_lines = 6
                         start_idx = max(0, len(signals) - max_lines)
                         y = 10
+
                         for sig in signals[start_idx:]:
                             draw.text((5, y), f"{sig[0]} {sig[1]} {sig[2]}", font=font, fill="white")
                             y += 15
+
                         disp.display(img)
 
             elif options[cursor] == "Transmit":
@@ -100,33 +135,53 @@ def rpi433_menu(disp, original_img, BUTTON_UP, BUTTON_DOWN, BUTTON_SELECT, Joyst
                     continue
 
                 tx_cursor = 0
+
                 while True:
                     img = original_img.copy()
                     draw = ImageDraw.Draw(img)
                     max_lines = 6
                     start_idx = max(0, tx_cursor - max_lines + 1)
                     y = 10
+
                     for i, sig in enumerate(signals[start_idx:start_idx + max_lines]):
                         actual_idx = start_idx + i
                         prefix = ">" if actual_idx == tx_cursor else " "
-                        draw.text((5, y), f"{prefix}{sig[0]} {sig[1]} {sig[2]}", font=font, fill="white")
+                        draw.text((5, y), f"{prefix} C:{sig[0]} P:{sig[1]} Pr:{sig[2]}", font=font, fill="white")
                         y += 15
+
                     disp.display(img)
 
                     if GPIO.input(BUTTON_UP) == GPIO.LOW:
                         tx_cursor = (tx_cursor - 1) % len(signals)
                         time.sleep(0.15)
+
                     if GPIO.input(BUTTON_DOWN) == GPIO.LOW:
                         tx_cursor = (tx_cursor + 1) % len(signals)
                         time.sleep(0.15)
+
+                    if GPIO.input(Joystick_Press) == GPIO.LOW:
+                        time.sleep(0.2)
+                        break
+
                     if GPIO.input(BUTTON_SELECT) == GPIO.LOW:
                         code, pulselength, protocol = signals[tx_cursor]
                         img = original_img.copy()
                         draw = ImageDraw.Draw(img)
-                        draw.text((5, 20), f"Transmitting {code}", font=font, fill="white")
+                        draw.text((5, 20), f"Selected:", font=font, fill="white")
+                        draw.text((5, 35), f"C:{code}", font=font, fill="white")
+                        draw.text((5, 50), f"P:{pulselength}", font=font, fill="white")
+                        draw.text((5, 65), f"Pr:{protocol}", font=font, fill="white")
                         disp.display(img)
-                        rf_tx.tx_code(code, protocol, pulselength)
-                        time.sleep(15)
-                        break
+                        cancelled = False
+                        start = time.time()
 
+                        while time.time() - start < 5:
+                            if GPIO.input(Joystick_Press) == GPIO.LOW:
+                                cancelled = True
+                                break
+                            time.sleep(0.05)
+
+                        if cancelled:
+                            time.sleep(0.2)
+                            continue
             time.sleep(0.1)

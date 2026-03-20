@@ -21,7 +21,7 @@ def scan_bluetooth_devices():
             mac_addresses.append(addr)
 
     return mac_addresses
-def bluetooth_menu(disp, original_img, BUTTON_UP, BUTTON_DOWN, BUTTON_SELECT):
+def bluetooth_menu(disp, original_img, BUTTON_UP, BUTTON_DOWN, BUTTON_SELECT, Joystick_Press):
     img = original_img.copy()
     draw = ImageDraw.Draw(img)
     font = ImageFont.load_default()
@@ -71,6 +71,18 @@ def bluetooth_menu(disp, original_img, BUTTON_UP, BUTTON_DOWN, BUTTON_SELECT):
                 
                 for i in range(120):
                     subprocess.run(command)
+                    while True:
+                        # якщо користувач натиснув кнопку "назад"
+                        if GPIO.input(Joystick_Press) == GPIO.LOW:
+                            if command.poll() is None:
+                                command.kill()
+                            break
+
+                        # якщо процес сам завершився
+                        if command.poll() is not None:
+                            break
+
+                        time.sleep(0.05)
                     #draw.rectangle((40, 30, 160, 50), outline="black", fill="black")
                     img = original_img.copy()
                     draw = ImageDraw.Draw(img)

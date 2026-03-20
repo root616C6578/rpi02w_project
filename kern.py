@@ -77,6 +77,7 @@ def scan_bluetooth_devices():
     return mac_addresses
 
 while True:
+
     if GPIO.input(BUTTON_UP) == GPIO.LOW:
         time.sleep(0.2)  
         current_index = (current_index + 1) % len(images)
