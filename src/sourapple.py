@@ -19,7 +19,7 @@ def sourapple_attack(disp, original_img2, Joystick_Press):
         # якщо користувач натиснув кнопку "назад"
         if GPIO.input(Joystick_Press) == GPIO.LOW:
             if command.poll() is None:
-                command.kill()
+                command.terminate()
             break
 
         # якщо процес сам завершився

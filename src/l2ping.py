@@ -75,7 +75,7 @@ def bluetooth_menu(disp, original_img, BUTTON_UP, BUTTON_DOWN, BUTTON_SELECT, Jo
                         # якщо користувач натиснув кнопку "назад"
                         if GPIO.input(Joystick_Press) == GPIO.LOW:
                             if command.poll() is None:
-                                command.kill()
+                                command.terminate()
                             break
 
                         # якщо процес сам завершився
