@@ -89,13 +89,10 @@ def fmtrx(original_img, disp, GPIO, Joystick_UP, Joystick_Down, Joystick_Press, 
                     # Вихід з меню вибору частоти
                     if button_state_BACK == GPIO.LOW:
                         print("Cancel freq selection")
-                        time.sleep(0.2)
-                        break
-
-                    if button_state_SELECT == GPIO.LOW:
                         fm = round(f, 1)
                         print(fm)
-                        time.sleep(0.1)
+                        time.sleep(0.1)                        
+                        time.sleep(0.2)
                         break
 
             time.sleep(0.1)
@@ -173,11 +170,8 @@ def fmtrx(original_img, disp, GPIO, Joystick_UP, Joystick_Down, Joystick_Press, 
                     if button_state_BACK == GPIO.LOW:
                         print("Stopping process...")
                         if process.poll() is None:
-                            process.terminate()
-                            try:
-                                process.wait(timeout=2)
-                            except subprocess.TimeoutExpired:
-                                process.kill()
+                            process.kill()
+
                         time.sleep(0.2)
                         break
 
