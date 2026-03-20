@@ -84,11 +84,6 @@ def rpi433_menu(disp, original_img, BUTTON_UP, BUTTON_DOWN, BUTTON_SELECT, Joyst
                     continue
 
                 while True:
-                    # вихід назад у головне меню
-                    if GPIO.input(Joystick_Press) == GPIO.LOW:
-                        time.sleep(0.2)
-                        break
-
                     timestamp = rf_rx.rx_code_timestamp
 
                     while rf_rx.rx_code_timestamp == timestamp:
