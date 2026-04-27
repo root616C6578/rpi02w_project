@@ -34,6 +34,15 @@ A comprehensive Python-based toolkit for Raspberry Pi that provides an interacti
 - Additional wireless security testing functionality
 - Modular design for extensibility
 
+## 📸 Проект в дії (Project Gallery)
+
+### Фізична реалізація проекту (Hardware Setup)
+![Photo 1](img_project/photo_2026-04-27_16-56-58.jpg)
+![Photo 2](img_project/photo_2026-04-27_16-57-07.jpg)
+![Photo 3](img_project/photo_2026-04-27_16-58-58.jpg)
+![Photo 4](img_project/photo_2026-04-27_16-59-17.jpg)
+![Photo 5](img_project/photo_2026-04-27_16-59-23.jpg)
+
 ## Hardware Requirements
 
 ### Display
